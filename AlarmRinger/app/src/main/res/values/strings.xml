@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Alarm Ringer</string>
+    <string name="btn_date_picker">Date Picker</string>
+</resources>

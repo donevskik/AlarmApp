@@ -1,5 +1,10 @@
 package com.donevsky.alarmringer;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -9,6 +14,7 @@ import androidx.fragment.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.widget.TimePicker;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
@@ -42,11 +48,24 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         c.set(Calendar.SECOND, 0);
 
         updateTimeText(c);
+        startAlarm(c);
+    }
+
+    private void startAlarm(Calendar c) {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+        Log.i("MainActivity", "Alarm set for "+ c.getTimeInMillis());
     }
 
 
     private void updateTimeText(Calendar c) {
         TextView textView = findViewById(R.id.tvAlarmSetFor);
-        textView.setText(c.toString());
+        String timeText = "Alarm set for: ";
+        timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
+
+        textView.setText(timeText);
     }
 }

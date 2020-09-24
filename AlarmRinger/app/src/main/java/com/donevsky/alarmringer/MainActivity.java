@@ -13,6 +13,7 @@ import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.widget.TimePicker;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -23,10 +24,6 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.alarm);
-//
-//        mediaPlayer.start();
 
         Button btnDatePicker = findViewById(R.id.btnDatePicker);
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
@@ -54,10 +51,14 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     private void startAlarm(Calendar c) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
+        intent.putExtra("alarmTimeInMillis", c.getTimeInMillis());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
         Log.i("MainActivity", "Alarm set for "+ c.getTimeInMillis());
+
+        FirebaseDatabase.getInstance().getReference()
+                .child(String.valueOf(c.getTimeInMillis())).setValue("false");
     }
 
 

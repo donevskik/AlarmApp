@@ -51,13 +51,17 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     private void startAlarm(Calendar c) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
-        intent.putExtra("alarmTimeInMillis", c.getTimeInMillis());
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+        intent.putExtra("alarmTimeInMillis", String.valueOf(c.getTimeInMillis()));
+        int requestCode = (int) (c.getTimeInMillis()%2147483640);
+        // needs to be something more unique because there is a chance every 25 days to generated the same requestCode this way
+        // maybe alarmId (made sure every user has different alarm
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, 0);
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
         Log.i("MainActivity", "Alarm set for "+ c.getTimeInMillis());
+        Log.i("MainActivity", "Casted " + (int) (c.getTimeInMillis()%2147483640));
 
-        FirebaseDatabase.getInstance().getReference()
+        FirebaseDatabase.getInstance().getReference().child("Alarms")
                 .child(String.valueOf(c.getTimeInMillis())).setValue("false");
     }
 

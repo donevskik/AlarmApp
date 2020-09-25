@@ -8,13 +8,23 @@ import android.util.Log;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class AlertReceiver extends BroadcastReceiver {
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.alarm);
-        mediaPlayer.start();
-        database.getReference().child(String.valueOf(intent.getExtras().getLong("alarmTimeInMillis"))).setValue("true");
-        Log.i("RECIEVER", "ring ring");
-    }
+        String alarmTime = intent.getExtras().getString("alarmTimeInMillis");
+
+        FirebaseDatabase.getInstance().getReference().child("Alarms")
+                .child(alarmTime)
+                .setValue("true");
+
+        Log.i("Receiver", alarmTime);
+
+        //start service
+        Intent serviceIntent = new Intent(context, RingtonePlayerService.class);
+        serviceIntent.putExtra("alarmTimeInMillis", alarmTime);
+        // later on when i want to put playlist choice i put in intent extras int id of R.raw
+        // and put in serviceIntent extras the same int id
+        context.startService(serviceIntent);
+
+   }
 }

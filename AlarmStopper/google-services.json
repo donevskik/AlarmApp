@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "582053988678",
+    "firebase_url": "https://remotealarm-71308.firebaseio.com",
+    "project_id": "remotealarm-71308",
+    "storage_bucket": "remotealarm-71308.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582053988678:android:27bc01e55c2bf4581dfd47",
+        "android_client_info": {
+          "package_name": "com.donevsky.alarmringer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "582053988678-i46kbp6sest0nqdn1v4fbfptni1earjg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3mJGZWEL8a8ewY3QBj4AaZ6giBBqSYGw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "582053988678-i46kbp6sest0nqdn1v4fbfptni1earjg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582053988678:android:664939d4cbcd5e511dfd47",
+        "android_client_info": {
+          "package_name": "com.donevsky.alarmstopper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "582053988678-i46kbp6sest0nqdn1v4fbfptni1earjg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3mJGZWEL8a8ewY3QBj4AaZ6giBBqSYGw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "582053988678-i46kbp6sest0nqdn1v4fbfptni1earjg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
